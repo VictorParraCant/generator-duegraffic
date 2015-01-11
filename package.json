@@ -1,0 +1,22 @@
+{
+  "name": "generator-duegraffic",
+  "version": "0.0.1",
+  "description": "Duegraffic generator for Yeoman",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pedroparra/generator-duegraffic.git"
+  },
+  "author": "Pedro Jesús Parra Cantero <pedroparra.correo@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pedroparra/generator-duegraffic/issues"
+  },
+  "homepage": "https://github.com/pedroparra/generator-duegraffic",
+  "dependencies": {
+    "yeoman-generator": "^0.18.6"
+  }
+}
