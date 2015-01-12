@@ -15,13 +15,18 @@ module.exports = yeoman.generators.Base.extend({
     var prompts = [
     {
       name: 'name',
-      message: 'Module Name',
+      message: 'Proyect Name',
       default: path.basename(process.cwd()),
     },
     {
+      name: 'version',
+      message: 'Proyect Version',
+      default: '0.0.1',
+    },
+    {
       name: 'description',
-      message: 'Description',
-      default: 'The best module ever.'
+      message: 'Proyect Description',
+      default: 'Proyect for Duegraffic'
     },
     {
       name: 'license',
@@ -36,6 +41,7 @@ module.exports = yeoman.generators.Base.extend({
       this.props = props;
       cb();
     }.bind(this));
+
   },
 
   app: function () {
@@ -46,6 +52,8 @@ module.exports = yeoman.generators.Base.extend({
     this.copy('gitignore', '.gitignore');
     this.copy('bowerrc', '.bowerrc');
     this.copy('jshintrc', '.jshintrc');
+
+    this.template('README.md', 'README.md');
     this.template('_bower.json', 'bower.json');
     this.template('_package.json', 'package.json');
 

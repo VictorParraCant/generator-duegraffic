@@ -1,0 +1,3 @@
+# <%= props.slugname %>
+
+> <%= props.description %>

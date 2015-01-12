@@ -1,5 +1,6 @@
 {
   "name": "<%= slugname %>",
-  "version": "0.0.0",
-  "description": "<%= props.description %>"
+  "version": "<%= props.version %>",
+  "description": "<%= props.description %>",
+  "license": "<%= props.license %>"
 }

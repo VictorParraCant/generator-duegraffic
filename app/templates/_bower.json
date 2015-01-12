@@ -1,11 +1,11 @@
 {
   "name": "<%= slugname %>",
-  "version": "0.0.0",
+  "version": "<%= props.version %>",
   "authors": [
     "Pedro J Parra <pedroparra.correo@gmail.com>"
   ],
   "description": "<%= props.description %>",
-  "license": "MIT",
+  "license": "<%= props.license %>",
   "ignore": [
     "**/.*",
     "node_modules",
