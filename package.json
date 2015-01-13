@@ -1,22 +1,36 @@
 {
   "name": "generator-duegraffic",
-  "version": "0.0.1",
-  "description": "Duegraffic generator for Yeoman",
+  "version": "0.0.2",
+  "description": "Yeoman Generator for Duegraffic",
+  "keywords": [
+    "generator-duegraffic",
+    "generator",
+    "duegraffic"
+  ],
   "main": "app",
-  "scripts": {
-    "test": "mocha --timeout 50000"
-  },
+  "author": "Pedro Jesús Parra Cantero <pedroparra.correo@gmail.com>",
   "repository": {
     "type": "git",
     "url": "https://github.com/pedroparra/generator-duegraffic.git"
   },
-  "author": "Pedro Jesús Parra Cantero <pedroparra.correo@gmail.com>",
-  "license": "MIT",
   "bugs": {
     "url": "https://github.com/pedroparra/generator-duegraffic/issues"
   },
-  "homepage": "https://github.com/pedroparra/generator-duegraffic",
+  "scripts": {
+    "test": "mocha --timeout 50000"
+  },
   "dependencies": {
     "yeoman-generator": "^0.18.6"
+  },
+  "engines": {
+    "node": ">=0.10.0",
+    "npm": ">=1.2.10"
+  },
+  "files": [
+    "app"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "mocha": "^2.1.0"
   }
 }

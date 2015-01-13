@@ -2,6 +2,7 @@
 > Create a basic template for Frontend Web Development
 
 Maintained by [Pedro J. Parra](https://github.com/pedroparra).
+Created for [Duegraffic](http://www.duegraffic.com).
 
 ## Install
 
