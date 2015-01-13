@@ -79,9 +79,11 @@ module.exports = function(grunt){
         options: {
           client: false,
           pretty: true,
-          data: function() {
+          /*
+           data: function() {
             return require('./data.json');
           }
+          */
         },
         files:[
           {

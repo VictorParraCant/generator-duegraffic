@@ -1,0 +1,23 @@
+block vars
+  
+doctype html
+html(lang="es")
+  head
+    title #{p_title}
+    meta(charset='utf-8')  
+    meta(name='description', content='#{p_description}')
+    meta(name='keywords', content='#{p_keywords}')
+    meta(name='author', content='')
+    meta(http-equiv='X-UA-Compatible' content='IE=edge')
+    meta(name='viewport' content='width=device-width, initial-scale=1')
+    link(rel='shortcut icon' href='')
+    link(rel='stylesheet', href='css/style.css')
+      
+    |<!--[if lt IE 9]>
+    |  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    |  <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    |<![endif]-->
+                    
+    body
+      block content
+      script(src='js/app.js')

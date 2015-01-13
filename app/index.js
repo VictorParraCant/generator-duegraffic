@@ -7,7 +7,7 @@ module.exports = yeoman.generators.Base.extend({
     this.pkg = require('../package.json');
     this.log(
       this.yeoman +
-      '\nGenerador Frontend para Duegraffic');
+      '\nGenerador Frontend para Duegraffic\n\n');
   },
 
   askFor: function (){
@@ -71,13 +71,27 @@ module.exports = yeoman.generators.Base.extend({
   },
 
   projectfiles: function () {
-    // this.template('index.js', 'index.js');
+
+    // Folders
     this.mkdir('app');
     this.mkdir('app/img');
     this.mkdir('app/jade');
     this.mkdir('app/js');
     this.mkdir('app/less');
     this.mkdir('public');
+
+    // Jade
+    this.copy('jade/index.jade', 'app/jade/index.jade');
+    this.copy('jade/template/layout.jade', 'app/jade/template/layout.jade');
+    this.copy('jade/template/menu.jade', 'app/jade/template/menu.jade');
+
+    // Less
+    this.copy('less/main.less', 'app/less/main.less');
+    this.copy('less/variables.less', 'app/less/variables.less');
+
+    // Js
+    this.copy('js/main.js', 'app/js/main.js');
+
   },
 
   install: function () {

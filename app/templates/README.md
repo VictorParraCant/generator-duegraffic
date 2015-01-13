@@ -1,3 +1,3 @@
-# <%= props.slugname %>
+# <%= slugname %>
 
 > <%= props.description %>
