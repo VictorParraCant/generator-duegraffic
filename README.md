@@ -1,4 +1,4 @@
-# Yeoman Generator for Duegraffic
+# Yeoman Generator for Duegraffic [![Build Status](https://travis-ci.org/pedroparra/generator-duegraffic.svg?branch=v0.0.2)](https://travis-ci.org/pedroparra/generator-duegraffic)
 > Create a basic template for Frontend Web Development
 
 Maintained by [Pedro J. Parra](https://github.com/pedroparra).
