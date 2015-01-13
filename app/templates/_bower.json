@@ -2,7 +2,7 @@
   "name": "<%= slugname %>",
   "version": "<%= props.version %>",
   "authors": [
-    "Pedro J Parra <pedroparra.correo@gmail.com>"
+    "<%= props.authorName %><<%= props.authorEmail %>>"
   ],
   "description": "<%= props.description %>",
   "license": "<%= props.license %>",

@@ -29,6 +29,16 @@ module.exports = yeoman.generators.Base.extend({
       default: 'Proyect for Duegraffic'
     },
     {
+      name: 'authorName',
+      message: 'Author\'s Name',
+      store: true
+    },
+    {
+      name: 'authorEmail',
+      message: 'Author\'s Email',
+      store: true
+    },
+    {
       name: 'license',
       message: 'License',
       default: 'MIT'
@@ -52,6 +62,7 @@ module.exports = yeoman.generators.Base.extend({
     this.copy('gitignore', '.gitignore');
     this.copy('bowerrc', '.bowerrc');
     this.copy('jshintrc', '.jshintrc');
+    this.copy('Gruntfile.js', 'Gruntfile.js');
 
     this.template('README.md', 'README.md');
     this.template('_bower.json', 'bower.json');
@@ -62,6 +73,10 @@ module.exports = yeoman.generators.Base.extend({
   projectfiles: function () {
     // this.template('index.js', 'index.js');
     this.mkdir('app');
+    this.mkdir('app/img');
+    this.mkdir('app/jade');
+    this.mkdir('app/js');
+    this.mkdir('app/less');
     this.mkdir('public');
   },
 
