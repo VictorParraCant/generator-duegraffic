@@ -1,13 +1,46 @@
 'use strict';
 var path = require('path');
 var yeoman = require('yeoman-generator');
+var yosay = require('yosay');
+var chalk = require('chalk');
+
 module.exports = yeoman.generators.Base.extend({
 
   init: function () {
     this.pkg = require('../package.json');
+    this.log( yosay('Duegraffic Generator') );
     this.log(
-      this.yeoman +
-      '\nGenerador Frontend para Duegraffic\n\n');
+      chalk.magenta(
+        'Duegraffic Yeoman Generator for Frontend Web Development' +
+        '\n'
+      )
+    );
+  },
+
+  askForBootstrap: function() {
+    var cb = this.async();
+    this.prompt([{
+      type: 'confirm',
+      name: 'bootstrap',
+      message: 'Would you like to use Bootstrap (with less)?',
+      default: true
+    }], function (props) {
+      this.bootstrap = props.bootstrap;
+      cb();
+    }.bind(this));
+  },
+
+  askForFontAwesome: function() {
+    var cb = this.async();
+    this.prompt([{
+      type: 'confirm',
+      name: 'fontawesome',
+      message: 'Would you like to use Font-awesome?',
+      default: true
+    }], function (props) {
+      this.fontawesome = props.fontawesome;
+      cb();
+    }.bind(this));
   },
 
   askFor: function (){
@@ -58,12 +91,13 @@ module.exports = yeoman.generators.Base.extend({
 
     this.config.save();
 
+    chalk.green('Generating files ... ');
     this.copy('editorconfig', '.editorconfig');
     this.copy('gitignore', '.gitignore');
     this.copy('bowerrc', '.bowerrc');
     this.copy('jshintrc', '.jshintrc');
-    this.copy('Gruntfile.js', 'Gruntfile.js');
 
+    this.template('_Gruntfile.js', 'Gruntfile.js');
     this.template('README.md', 'README.md');
     this.template('_bower.json', 'bower.json');
     this.template('_package.json', 'package.json');
@@ -86,7 +120,7 @@ module.exports = yeoman.generators.Base.extend({
     this.copy('jade/template/menu.jade', 'app/jade/template/menu.jade');
 
     // Less
-    this.copy('less/main.less', 'app/less/main.less');
+    this.template('less/_main.less', 'app/less/main.less');
     this.copy('less/variables.less', 'app/less/variables.less');
 
     // Js

@@ -7,7 +7,6 @@ module.exports = function(grunt){
   // Time how long tasks take. Can help when optimizing build times
   require('time-grunt')(grunt);
 
-  // Configurable paths for the application
   var appConfig = {
     app: 'app',
     dist: 'public',
@@ -26,15 +25,15 @@ module.exports = function(grunt){
         livereload: true
       },
       less: {
-        files: ['<%= ptl.app %>/less/**/*.less'],
+        files: ['<%%= ptl.app %>/less/**/*.less'],
         tasks: ['less']
       },
       jade: {
-        files: ['<%= ptl.app %>/jade/**/*.jade'],
+        files: ['<%%= ptl.app %>/jade/**/*.jade'],
         tasks: ['jade']
       },
       js:{
-        files: ['<%= ptl.app %>/js/**/*.js'],
+        files: ['<%%= ptl.app %>/js/**/*.js'],
         tasks: ['jshint','uglify']
       },
       json: {
@@ -45,34 +44,33 @@ module.exports = function(grunt){
 
     // Clean
     clean: {
-      css: ['<%= ptl.dist %>/css'],
-      js: ['<%= ptl.dist %>/js'],
-      img: ['<%= ptl.dist %>/img'],
-      html:['<%= ptl.dist %>/*.html']
+      css: ['<%%= ptl.dist %>/css'],
+      js: ['<%%= ptl.dist %>/js'],
+      img: ['<%%= ptl.dist %>/img'],
+      html:['<%%= ptl.dist %>/*.html']
     },
 
     // Copy
     copy: {
       dist: {
-        files: [
+        files: [<% if (fontawesome) { %>
           {
-            cwd : '<%= ptl.bower %>/font-awesome',
+            cwd : '<%%= ptl.bower %>/font-awesome',
             src : ['fonts/*.*'],
-            dest : '<%= ptl.dist %>/',
+            dest : '<%%= ptl.dist %>/',
             dot: true,
             expand  : true
-          },
+          },<% } %>
           {
-            cwd : '<%= ptl.app %>/img',
+            cwd : '<%%= ptl.app %>/img',
             src : ['**.*'],
-            dest : '<%= ptl.dist %>/img/',
+            dest : '<%%= ptl.dist %>/img/',
             dot: true,
             expand  : true
           }
         ]
       }
     },
-
     // Jade
     jade: {
       compile: {
@@ -80,16 +78,16 @@ module.exports = function(grunt){
           client: false,
           pretty: true,
           /*
-           data: function() {
+          data: function() {
             return require('./data.json');
           }
           */
         },
         files:[
           {
-            cwd: '<%= ptl.app %>/jade',
+            cwd: '<%%= ptl.app %>/jade',
             src: ['*.jade'],
-            dest: '<%= ptl.dist %>',
+            dest: '<%%= ptl.dist %>',
             expand: true,
             ext: '.html'
           }
@@ -100,14 +98,14 @@ module.exports = function(grunt){
     // Less compile css
     less: {
       development: {
-        options: { paths: ['<%= ptl.app %>/less'] },
-        files: { '<%= ptl.dist %>/css/style.css': '<%= ptl.app %>/less/main.less' }
+        options: { paths: ['<%%= ptl.app %>/less'] },
+        files: { '<%%= ptl.dist %>/css/style.css': '<%%= ptl.app %>/less/main.less' }
       }
     },
 
     // jshint
     jshint: {
-      files: ['<%= ptl.app %>/js/main.js'],
+      files: ['<%%= ptl.app %>/js/main.js'],
       options: {
         jshintrc: '.jshintrc',
         reporter: require('cool-reporter')
@@ -117,15 +115,15 @@ module.exports = function(grunt){
     // Javascript fusion
     uglify: {
       options: {
-        banner: '/*! <%= pkg.name %> <%= grunt.template.today("dd-mm-yyyy") %> */\n',
+        banner: '/*! <%%= pkg.name %> <%%= grunt.template.today("dd-mm-yyyy") %> */\n',
         mangle: false
       },
       development: {
         files: {
-          '<%= ptl.dist %>/js/app.js': [
-            '<%= ptl.bower %>/jquery/dist/jquery.min.js',
-            '<%= ptl.bower %>/bootstrap/dist/js/bootstrap.min.js',
-            '<%= ptl.app %>/js/main.js'
+          '<%%= ptl.dist %>/js/app.js': [
+          '<%%= ptl.bower %>/jquery/dist/jquery.min.js',
+          '<%%= ptl.bower %>/bootstrap/dist/js/bootstrap.min.js',
+          '<%%= ptl.app %>/js/main.js'
           ]
         }
       }
@@ -147,7 +145,9 @@ module.exports = function(grunt){
       }
 
     }
+
   });
+
 
   grunt.registerTask('default', ['clean','copy','jade','less','jshint','uglify','connect:livereload','watch']);
 
