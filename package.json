@@ -1,6 +1,6 @@
 {
   "name": "generator-duegraffic",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Yeoman Generator for Duegraffic",
   "keywords": [
     "generator-duegraffic",
@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "chalk": "^0.5.1",
+    "util": "^0.10.3",
     "yeoman-generator": "^0.18.6",
     "yosay": "^1.0.1"
   },

@@ -12,7 +12,7 @@
     "bower_components"
   ],
   "dependencies": {
-    <% if (bootstrap) { %>"bootstrap": "*",<% } %>
+    <% if (bootstrap) { %><% if (CssPreprocessorFormat == 'less') { %>"bootstrap": "*",<% } else {%>"bootstrap-stylus":"*",<% } } %>
     <% if (fontawesome) { %>"font-awesome": "*"<% } %>
   }
 }

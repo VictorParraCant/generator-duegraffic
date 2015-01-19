@@ -23,11 +23,15 @@ module.exports = function(grunt){
     watch:{
       options: {
         livereload: true
-      },
+      },<% if(CssPreprocessorFormat == 'less'){ %>
       less: {
-        files: ['<%%= ptl.app %>/less/**/*.less'],
+        files: ['<%%= ptl.app %>/styles/**/*.less'],
         tasks: ['less']
-      },
+      },<% } else { %>
+      stylus: {
+        files: ['<%%= ptl.app %>/styles/**/*.styl'],
+        tasks: ['stylus']
+      },<% } %>
       jade: {
         files: ['<%%= ptl.app %>/jade/**/*.jade'],
         tasks: ['jade']
@@ -95,13 +99,22 @@ module.exports = function(grunt){
       }
     },
 
-    // Less compile css
+    // Compile css
+    <% if(CssPreprocessorFormat == 'less'){ %>
     less: {
       development: {
         options: { paths: ['<%%= ptl.app %>/less'] },
-        files: { '<%%= ptl.dist %>/css/style.css': '<%%= ptl.app %>/less/main.less' }
+        files: { '<%%= ptl.dist %>/css/main.css': '<%%= ptl.app %>/styles/main.less' }
       }
     },
+    <% } else { %>
+    stylus:{
+      compile:{
+        options: { paths: ['<%%= ptl.app %>/less'] },
+        files: { '<%%= ptl.dist %>/css/main.css': '<%%= ptl.app %>/styles/main.styl' }
+      }
+    },
+    <% } %>
 
     // jshint
     jshint: {
@@ -120,9 +133,9 @@ module.exports = function(grunt){
       },
       development: {
         files: {
-          '<%%= ptl.dist %>/js/app.js': [
+          '<%%= ptl.dist %>/js/app.js': [<% if (bootstrap) { %>
           '<%%= ptl.bower %>/jquery/dist/jquery.min.js',
-          '<%%= ptl.bower %>/bootstrap/dist/js/bootstrap.min.js',
+          '<%%= ptl.bower %>/bootstrap/dist/js/bootstrap.min.js',<% } %>
           '<%%= ptl.app %>/js/main.js'
           ]
         }
@@ -135,7 +148,7 @@ module.exports = function(grunt){
       livereload: {
         options: {
           port: 9000,
-          hostname: 'localhost',
+          hostname: '0.0.0.0',
           livereload: 35729,
           open: true,
           middleware: function (connect) {
@@ -148,7 +161,11 @@ module.exports = function(grunt){
 
   });
 
-
+  <% if(CssPreprocessorFormat == 'less'){ %>
   grunt.registerTask('default', ['clean','copy','jade','less','jshint','uglify','connect:livereload','watch']);
+  <% }else{ %>
+  grunt.registerTask('default', ['clean','copy','jade','stylus','jshint','uglify','connect:livereload','watch']);
+  <% } %>
+
 
 };

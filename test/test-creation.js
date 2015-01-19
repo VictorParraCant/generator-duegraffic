@@ -28,18 +28,17 @@ describe('duegraffic generator', function () {
 
     var expected = [
       '.gitignore',
-      '.gitignore',
       '.bowerrc',
       '.jshintrc',
-      'Gruntfile.js',
+      'Gulpfile.js',
       'README.md',
       'bower.json',
       'package.json',
       'app/jade/index.jade',
       'app/jade/template/layout.jade',
       'app/jade/template/menu.jade',
-      'app/less/main.less',
-      'app/less/variables.less',
+      'app/styles/main.styl',
+      'app/styles/variables.styl',
       'app/js/main.js'
     ];
 

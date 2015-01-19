@@ -1,137 +1,188 @@
 'use strict';
 var path = require('path');
+var util = require('util');
 var yeoman = require('yeoman-generator');
 var yosay = require('yosay');
 var chalk = require('chalk');
 
-module.exports = yeoman.generators.Base.extend({
+var Generator = module.exports = function Generator(args, options) {
+  yeoman.generators.Base.apply(this, arguments);
+};
 
-  init: function () {
-    this.pkg = require('../package.json');
-    this.log( yosay('Duegraffic Generator') );
-    this.log(
-      chalk.magenta(
-        'Duegraffic Yeoman Generator for Frontend Web Development' +
-        '\n'
-      )
-    );
-  },
+// Util
+util.inherits(Generator, yeoman.generators.Base);
 
-  askForBootstrap: function() {
-    var cb = this.async();
-    this.prompt([{
-      type: 'confirm',
-      name: 'bootstrap',
-      message: 'Would you like to use Bootstrap (with less)?',
-      default: true
-    }], function (props) {
-      this.bootstrap = props.bootstrap;
-      cb();
-    }.bind(this));
-  },
+// Welcome Message
+Generator.prototype.init = function init() {
+  this.pkg = require('../package.json');
+  this.log( yosay('Duegraffic Generator') );
+  this.log(
+    chalk.magenta(
+      'Duegraffic Yeoman Generator for Frontend Web Development' +
+      '\n'
+    )
+  );
+};
 
-  askForFontAwesome: function() {
-    var cb = this.async();
-    this.prompt([{
-      type: 'confirm',
-      name: 'fontawesome',
-      message: 'Would you like to use Font-awesome?',
-      default: true
-    }], function (props) {
-      this.fontawesome = props.fontawesome;
-      cb();
-    }.bind(this));
-  },
+// Gulp or grunt ?
+Generator.prototype.askForTaskRunner = function askForTaskRunner(){
+  var cb = this.async();
+  var TaskRunnerFormats = ['gulp','grunt'];
+  var prompts = [{
+    type: 'list',
+    name: 'TaskRunnerFormat',
+    message: 'Select a Task Runner to use:',
+    choices: TaskRunnerFormats,
+    default: 'gulp'
+  }];
+  this.prompt(prompts, function (props) {
+    this.TaskRunnerFormat = props.TaskRunnerFormat;
+    cb();
+  }.bind(this));
+};
 
-  askFor: function (){
-    var cb = this.async();
-    var prompts = [
-    {
-      name: 'name',
-      message: 'Proyect Name',
-      default: path.basename(process.cwd()),
-    },
-    {
-      name: 'version',
-      message: 'Proyect Version',
-      default: '0.0.1',
-    },
-    {
-      name: 'description',
-      message: 'Proyect Description',
-      default: 'Proyect for Duegraffic'
-    },
-    {
-      name: 'authorName',
-      message: 'Author\'s Name',
-      store: true
-    },
-    {
-      name: 'authorEmail',
-      message: 'Author\'s Email',
-      store: true
-    },
-    {
-      name: 'license',
-      message: 'License',
-      default: 'MIT'
-    }
+// Less or stylus ?
+Generator.prototype.askForCssPreprocessor = function askForCssPreprocessor(){
+  var cb = this.async();
+  var CssPreprocessorFormats = ['stylus','less'];
+  var prompts = [{
+    type: 'list',
+    name: 'CssPreprocessorFormat',
+    message: 'Select a Css Pre-processor to use:',
+    choices: CssPreprocessorFormats,
+    default: 'stylus'
+  }];
+  this.prompt(prompts, function (props) {
+    this.CssPreprocessorFormat = props.CssPreprocessorFormat;
+    cb();
+  }.bind(this));
+};
 
-    ];
+// Use Boostrap ?
+Generator.prototype.askForBootstrap = function askForBootstrap(){
+  var cb = this.async();
+  var prompts = [{
+    type: 'confirm',
+    name: 'bootstrap',
+    message: 'Would you like to use Bootstrap?',
+    default: true
+  }];
+  this.prompt(prompts, function(props){
+    this.bootstrap = props.bootstrap;
+    cb();
+  }.bind(this));
+};
 
-    this.prompt(prompts, function (props) {
-      this.slugname = this._.slugify(props.name);
-      this.props = props;
-      cb();
-    }.bind(this));
 
-  },
+// Use Font-awesome ?
+Generator.prototype.askForFontAwesome = function askForFontAwesome() {
+  var cb = this.async();
+  this.prompt([{
+    type: 'confirm',
+    name: 'fontawesome',
+    message: 'Would you like to use Font-awesome?',
+    default: true
+  }], function (props) {
+    this.fontawesome = props.fontawesome;
+    cb();
+  }.bind(this));
+};
 
-  app: function () {
+// Proyect info
+Generator.prototype.askFor = function askFor(){
 
-    this.config.save();
+  var cb = this.async();
+  var prompts = [
+      {
+        name: 'name',
+        message: 'Proyect Name',
+        default: path.basename(process.cwd()),
+      },
+      {
+        name: 'version',
+        message: 'Proyect Version',
+        default: '0.0.1',
+      },
+      {
+        name: 'description',
+        message: 'Proyect Description',
+        default: 'Proyect for Duegraffic'
+      },
+      {
+        name: 'authorName',
+        message: 'Author\'s Name',
+        store: true
+      },
+      {
+        name: 'authorEmail',
+        message: 'Author\'s Email',
+        store: true
+      },
+      {
+        name: 'license',
+        message: 'License',
+        default: 'MIT'
+      }
 
-    chalk.green('Generating files ... ');
-    this.copy('editorconfig', '.editorconfig');
-    this.copy('gitignore', '.gitignore');
-    this.copy('bowerrc', '.bowerrc');
-    this.copy('jshintrc', '.jshintrc');
+  ];
 
+  this.prompt(prompts, function (props) {
+    this.slugname = this._.slugify(props.name);
+    this.props = props;
+    cb();
+  }.bind(this));
+
+};
+
+// Installation
+Generator.prototype.app = function app(){
+  this.config.save();
+
+  // Root files
+  this.copy('editorconfig', '.editorconfig');
+  this.copy('gitignore', '.gitignore');
+  this.copy('bowerrc', '.bowerrc');
+  this.copy('jshintrc', '.jshintrc');
+  this.template('README.md', 'README.md');
+  this.template('_bower.json', 'bower.json');
+  this.template('_package.json', 'package.json');
+
+  if( this.TaskRunnerFormat === 'grunt' ){
     this.template('_Gruntfile.js', 'Gruntfile.js');
-    this.template('README.md', 'README.md');
-    this.template('_bower.json', 'bower.json');
-    this.template('_package.json', 'package.json');
-
-  },
-
-  projectfiles: function () {
-
-    // Folders
-    this.mkdir('app');
-    this.mkdir('app/img');
-    this.mkdir('app/jade');
-    this.mkdir('app/js');
-    this.mkdir('app/less');
-    this.mkdir('public');
-
-    // Jade
-    this.copy('jade/index.jade', 'app/jade/index.jade');
-    this.copy('jade/template/layout.jade', 'app/jade/template/layout.jade');
-    this.copy('jade/template/menu.jade', 'app/jade/template/menu.jade');
-
-    // Less
-    this.template('less/_main.less', 'app/less/main.less');
-    this.copy('less/variables.less', 'app/less/variables.less');
-
-    // Js
-    this.copy('js/main.js', 'app/js/main.js');
-
-  },
-
-  install: function () {
-    this.installDependencies({
-      skipInstall: this.options['skip-install']
-    });
+  }else{
+    this.template('_Gulpfile.js', 'Gulpfile.js');
   }
 
-});
+  // Folders
+  this.mkdir('app');
+  this.mkdir('app/img');
+  this.mkdir('app/jade');
+  this.mkdir('app/js');
+  this.mkdir('app/styles');
+  this.mkdir('public');
+
+  // Jade files
+  this.copy('jade/index.jade', 'app/jade/index.jade');
+  this.copy('jade/template/layout.jade', 'app/jade/template/layout.jade');
+  this.copy('jade/template/menu.jade', 'app/jade/template/menu.jade');
+
+  // Less or Stylus files
+  if( this.CssPreprocessorFormat === 'less' ){
+    this.template('less/_main.less', 'app/styles/main.less');
+    this.copy('less/variables.less', 'app/styles/variables.less');
+  }else{
+    this.template('stylus/_main.styl', 'app/styles/main.styl');
+    this.copy('stylus/variables.styl', 'app/styles/variables.styl');
+  }
+
+  // Js files
+  this.copy('js/main.js', 'app/js/main.js');
+
+};
+
+
+Generator.prototype.install = function install(){
+  this.installDependencies({
+    skipInstall: this.options['skip-install']
+  });
+};
