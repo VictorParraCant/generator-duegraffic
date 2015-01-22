@@ -8,7 +8,7 @@ stylus = require('gulp-stylus'),<% } %>
 jade = require('gulp-jade'),
 jshint = require('gulp-jshint'),
 concat = require('gulp-concat'),
-clean = require('gulp-clean');
+del = require('del');
 
 
 // Servidor web de desarrollo
@@ -44,10 +44,10 @@ gulp.task('less', function () {
 <% } else { %>
 gulp.task('stylus', function () {
   gulp.src('./app/styles/main.styl')
-  .pipe(stylus(
+  .pipe(stylus({
     compress: false,
     'include css': true
-  ))
+  }))
   .pipe(gulp.dest('./public/css/'))
   .pipe(connect.reload());
 });
@@ -55,7 +55,8 @@ gulp.task('stylus', function () {
 gulp.task('jshint', function() {
   gulp.src('./app/js/*.js')
   .pipe(jshint('.jshintrc'))
-  .pipe(jshint.reporter('cool-reporter'));
+  .pipe(jshint.reporter('cool-reporter'))
+  .pipe(connect.reload());
 });
 
 gulp.task('concat', function() {
@@ -64,9 +65,8 @@ gulp.task('concat', function() {
   .pipe(gulp.dest('./public/js/'));
 });
 
-gulp.task('clean', function () {
-  gulp.src(['./public/css','./public/img','./public/js','./public/*.html'], {read: false})
-  .pipe(clean());
+gulp.task('clean', function (cb) {
+  del(['./public/js/*.js','./public/styles/*.css','./public/fonts/*.*','./public/*.html'], cb);
 });
 
 gulp.task('copy', function() {<% if (fontawesome) { %>

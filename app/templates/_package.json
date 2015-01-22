@@ -22,7 +22,7 @@
     "time-grunt": "^1.0.0",
     <% if(CssPreprocessorFormat == 'less'){ %>"grunt-contrib-less": "^1.0.0"<% }else{ %>"grunt-contrib-stylus":"^0.20.0"<% } %><% } %><% if(TaskRunnerFormat == 'gulp'){ %>
     "gulp": "^3.8.10",
-    "gulp-clean": "^0.3.1",
+    "del": "*",
     "gulp-concat": "^2.4.3",
     "gulp-connect": "^2.2.0",
     "gulp-jade": "^0.10.0",
