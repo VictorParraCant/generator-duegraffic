@@ -1,6 +1,6 @@
 {
   "name": "generator-duegraffic",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Yeoman Generator for Duegraffic",
   "keywords": [
     "generator-duegraffic",
@@ -17,7 +17,7 @@
     "url": "https://github.com/pedroparra/generator-duegraffic/issues"
   },
   "scripts": {
-    "test": "mocha --timeout 50000"
+    "test": "mocha -R spec"
   },
   "dependencies": {
     "chalk": "^0.5.1",
